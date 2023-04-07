@@ -1,0 +1,28 @@
+workplan lifi
+
+tramsmission image processing
+
+take a image
+break it into 3 rgb matrix 
+convert each matrix into binary format
+now turbo encode each r g b binary sequence
+
+transmission part
+
+one light on will mark the begining of data transmission both lights off will mark the end of data transmission.
+firtsly record the intensity of all the 3 stages.
+one led on
+both led on
+both led off
+
+then setup the limits so that the binary sequence can be constructed.
+
+
+
+
+receiver part
+
+receive the turbo encoded code 
+then turbo decode it to get back the binary sequence 
+then reshape the binary sequence to get the rgb matrix 
+then concatenate them to reconstruct the image back.
