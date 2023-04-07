@@ -1,4 +1,4 @@
-int del = 100;
+int del = 10;
 void both() {
   digitalWrite(A0, HIGH);
   digitalWrite(A1, HIGH);
@@ -43,8 +43,15 @@ void loop() {
     Serial.println();
     Serial.println(binary);
     char temp;
+    // int count = 0;
     for (int i = 0; i < binary.length(); i++) {
       temp = binary[i];
+      // if (count == 8){
+      //   count = 0;
+      //   none();
+      //   delay(del);
+      // }
+      //count++;
       if (temp == '0') {
         one();
         delay(del);
@@ -57,5 +64,6 @@ void loop() {
         
       }
     }
+    none();
   }
 }
