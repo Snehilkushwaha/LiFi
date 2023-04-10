@@ -1,6 +1,6 @@
 //kashish
 int ambient, one, zero;
-int del = 10;
+int del = 25;
 
 void setup() {
   Serial.begin(9600);

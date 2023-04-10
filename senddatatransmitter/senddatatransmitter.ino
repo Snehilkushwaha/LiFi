@@ -1,4 +1,4 @@
-int del = 10;
+int del = 25;
 void both() {
   digitalWrite(A0, HIGH);
   digitalWrite(A1, HIGH);
