@@ -1,3 +1,4 @@
+//kashish
 int ambient, one, zero;
 int del = 10;
 
