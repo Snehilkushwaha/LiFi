@@ -43,31 +43,24 @@ void loop() {
     Serial.println();
     Serial.println(binary);
     char temp;
-    
-    int count = 0;
-    for (int i = 0; i < binary.length(); i++) {
-      temp = binary[i];
-      // if (count == 8){
-      //   count = 0;
-      //   none();
-      //   delay(del);
-      // }
-      //count++;
-      if (count == 8){
-      count = 0;
-      delay(del*5);
+
+
+    for (int i = 0; i < binary.length(); i += 8) {
+      String charBinary = binary.substring(i, i + 8);
+      for (int j = 0; j < charBinary.length(); j++) {
+        temp = charBinary[j];
+        if (temp == '0') {
+          one();
+          delay(del);
+        } else if (temp == '1') {
+          both();
+          delay(del);
+        } else {
+          none();
+          delay(del);
+        }
       }
-      if (temp == '0') {
-        one();
-        delay(del);
-      } else if (temp == '1') {
-        both();
-        delay(del);
-      } else {
-        none();
-        delay(del);
-        
-      }
+      delay(del * 5);
     }
     none();
   }
