@@ -1,0 +1,54 @@
+del = 25;
+
+function both()
+    writeDigitalPin(a, 'D11', 1);
+    writeDigitalPin(a, 'D12', 1);
+end
+
+function one()
+    writeDigitalPin(a, 'D11', 1);
+    writeDigitalPin(a, 'D12', 0);
+end
+
+function none()
+    writeDigitalPin(a, 'D11', 0);
+    writeDigitalPin(a, 'D12', 0);
+end
+
+a = arduino('COM4', 'Uno');
+configurePin(a, 'D11', 'DigitalOutput');
+configurePin(a, 'D12', 'DigitalOutput');
+both();
+pause(2);
+one();
+pause(2);
+none();
+pause(2);
+
+while true
+    if a.AvailableBytes > 0
+        input = readString(a);
+        fprintf('Binary sequence: %s\n', input);
+        binary = '';
+        for i = 1:length(input)
+            charBinary = dec2bin(input(i), 8);
+            binary = [binary, charBinary];
+            fprintf('%s ', charBinary);
+        end
+        fprintf('\n%s\n', binary);
+        for i = 1:length(binary)
+            temp = binary(i);
+            if temp == '0'
+                one();
+                pause(del/1000);
+            elseif temp == '1'
+                both();
+                pause(del/1000);
+            else
+                none();
+                pause(del/1000);
+            end
+        end
+        none();
+    end
+end

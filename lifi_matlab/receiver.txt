@@ -1,0 +1,45 @@
+ambient = 0;
+one = 0;
+zero = 0;
+del = 25;
+
+s = serial('COM3', 'BaudRate', 9600); % Replace 'COM3' with the appropriate port name
+fopen(s);
+
+fprintf(s, '%s\n', 'A0'); % Set the pin mode to INPUT on pin A0
+pause(1);
+one = str2double(fgetl(s));
+pause(2);
+zero = str2double(fgetl(s));
+pause(2);
+ambient = str2double(fgetl(s));
+pause(1);
+
+disp(ambient);
+disp(zero);
+disp(one);
+
+while true
+    binary = "";
+    while str2double(fgetl(s)) > (ambient+20)
+        if str2double(fgetl(s)) > (one-20) && str2double(fgetl(s)) < (one+20) % one
+            binary = binary + "1";
+            pause(del/1000);
+        elseif str2double(fgetl(s)) > (zero-20) % zero
+            binary = binary + "0";
+            pause(del/1000);
+        end
+    end
+
+    output = "";
+    for i = 1:8:length(binary)
+        charBinary = binary(i:i+7);
+        charOutput = char(bin2dec(charBinary));
+        output = strcat(output, charOutput);
+    end
+
+    if ~isempty(output)
+        disp("Output string: " + output);
+        disp(binary);
+    end
+end
